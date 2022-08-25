@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!-MIT License
+Copyright (c) 2022, Mikael Marche
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.-!>
+<html lang="fr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta charset="UTF-8">
+    <title>Delcia Panel</title>
+    <link rel="stylesheet" href='/static/css/delcia.css'/>
+</head>
+<body onload="loadData()">
+<header>
+  <h2 align="center">Programmateur Delcia</h2>
+    <div>
+        <table align="center">
+            <tr>
+                <td>
+                    <label>Baterie: </label> <label id="level">68</label><label>%</label>
+                </td>
+                <td>
+                    <label>Autonomie: </label> <label id="autonomy">123</label><label>km</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Prise : </label> <label id="plugStatus">branché</label>
+                </td>
+                <td>
+                    <label>Charge : </label> <label id="chargingStatus">OFF</label>
+                     <button type="button" id="button_onoff" onclick="onOff()">start/stop</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+<section>
+
+    <div id="charge_info" name="charge_info">
+         <legend><h2>Configuration de charge</h2></legend>
+        <fieldset>
+            <legend>Puissance de chargement:</legend>
+            <div id="charge_power" class="controls">
+                <div>
+                    <input type="radio" id="32A" name="power" value="32" onclick="refresh_estimated_charge_time(this);" >
+                    <label>6,6kW (32A)</label>
+                </div>
+                <div>
+                    <input type="radio" id="16A" name="power" value="16" checked  onclick="refresh_estimated_charge_time(this);">
+                    <label>3,7kW (16A)</label>
+                </div>
+                <div>
+                    <input type="radio" id="10A" name="power" value="10"  onclick="refresh_estimated_charge_time(this);">
+                    <label>2,3kW (10A)</label>
+                </div>
+                 <div>
+                    <input type="radio" id="8A" name="power" value="8"  onclick="refresh_estimated_charge_time(true);">
+                    <label>1,8kW (8A)</label>
+                </div>
+            </div>
+        </fieldset>
+        <div class="controls">
+            <div id="time_charge" class="controls">
+                <div>
+                    <table>
+                        <legend>Temps de charge estimé</legend>
+                        <tr>
+                            <td>
+                                <label id="minto80" >78</label> <label > pour atteindre 80%</label>
+                            </td>
+                            <td>
+                                <label id="minto100">102</label> <label > pour atteindre 100%</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="programmateur_id" name="programmateur">
+        <legend><h2>Programmateur</h2></legend>
+        <div class="popup">
+            <label >programmation en cours : </label> <label id="is_prog">NON</label> <button type="button" onclick="getCronTable()">Info</button>
+            <span class="popuptext" id="myPopup">A Simple Popup!</span>
+        </div>
+        <div class="controls_2">
+            <div id="dure_info" name="dure_info">
+                <fieldset>
+                    <legend>Durée de charge :</legend>
+                     <div>
+                        <input type="radio" id="80" name="time" value="80" checked>
+                        <label >80%</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="100" name="time" value="100">
+                        <label >100%</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="min" name="time" value="0">
+                         <!--<input type="number"  min="0" id="user_min" name="user_min" minlength="1" maxlength="4" size="4">  <label> minutes </label>-->
+                         <input type="time" value="00:00" id="user_min" max="18:00"  name="user_min">  <label> h:m </label>
+                    </div>
+                </fieldset>
+            </div>
+            <div id="programme_type" name="programme_type">
+                <fieldset>
+                    <legend>Programation :</legend>
+                    <div>
+                        <input type="radio" id="now" name="when" value="0">
+                        <label >Maintenant</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="diff" name="when" value="1" checked>
+                        <label >Aux heures creuses</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="date" name="when" value="2">
+                        <label>à : </label>  <input type="time" id="user_date" name="user_date">  <label> heure </label>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <div align="center">
+            <button type="button"  id="id_reset" onclick="reset()">Réinitialiser</button>
+            <button type="button" id="id_prog" onclick="programCharge()">Programmer</button>
+        </div>
+</footer>
+
+<script src="/static/js/delcia.js"></script>
+</body>
+</html>

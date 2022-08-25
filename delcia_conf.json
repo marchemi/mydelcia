@@ -1,0 +1,11 @@
+{
+  "DACIA_LOGIN":"",
+  "DACIA_PASSWORD":"",
+  "DACIA_ACCOUNT":"",
+  "DACIA_VIN":"",
+  "CRONFILE":"crontab",
+  "PORT": 8181,
+  "DEBUG": true,
+  "USER": "root",
+  "ADD_USER_TO_CRON": false
+}

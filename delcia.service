@@ -1,0 +1,13 @@
+[Unit]
+Description=My Flask server
+After=network.target
+
+[Service]
+User=ubuntu
+ExecStart=/home/ubuntu/my-server/script.py
+WorkingDirectory=/home/ubuntu/my-server/
+Restart=on-failure
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

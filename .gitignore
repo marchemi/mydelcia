@@ -1,0 +1,7 @@
+/tests/delcia_distrib/
+/delcia_distrib/
+/delcia.tar.gz
+/delcia_conf_debug.json
+/venv/
+.DS_Store
+.idea/

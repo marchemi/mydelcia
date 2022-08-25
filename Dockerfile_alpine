@@ -1,0 +1,51 @@
+# Dockerfile to create image with cron services
+FROM alpine:latest
+MAINTAINER mikael.marche@orange.com
+
+
+
+RUN which crond && \
+    rm -rf /etc/periodic
+
+RUN apk update 
+#apk update && apk upgrade --available 
+#    rm -rf /etc/cron.*/*
+
+RUN set -x \
+    && apk --no-cache add\
+    python3 \
+    py-pip \
+    nano \
+    && pip install virtualenv \
+    && : # last line
+
+
+# Add 3.8 to the available alternatives
+#RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.9 1
+
+# Set python3.7 as the default python
+#RUN update-alternatives --set python /usr/bin/python3.9
+
+
+#RUN python -m pip install --upgrade pip
+
+
+
+# Install pip packages
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+
+
+COPY delcia_distrib /usr/src/delcia_distrib
+# Set working directory for code
+WORKDIR /usr/src/delcia_distrib
+
+COPY entrypoint-alpine.sh ./entrypoint.sh
+COPY delcia_tools_alpine.sh ./delcia_tools.sh
+COPY delcia_conf_alpine.json ./delcia_conf.json
+
+ENTRYPOINT ["./entrypoint.sh"]
+#CMD ["crond","-f", "-l", "2"]
+
+#docker run --name delcia  -d  -p 2707:2707 mydelcia 
+#see : https://www.airplane.dev/blog/docker-cron-jobs-how-to-run-cron-inside-containers
