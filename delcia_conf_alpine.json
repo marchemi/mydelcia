@@ -4,8 +4,8 @@
   "DACIA_ACCOUNT":"",
   "DACIA_VIN":"",
   "CRONFILE":"/etc/crontabs/root",
-  "PORT": 8181,
+  "PORT": 2707,
   "DEBUG": false,
   "USER": "root",
-  "ADD_USER_TO_CRON": false
+  "ADD_USER_TO_CRON": true
 }

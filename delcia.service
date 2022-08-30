@@ -1,11 +1,12 @@
 [Unit]
-Description=My Flask server
+Description=Delcia Flask server
 After=network.target
 
 [Service]
 User=ubuntu
-ExecStart=/home/ubuntu/my-server/script.py
-WorkingDirectory=/home/ubuntu/my-server/
+ExecStart=/home/ubuntu/delcia_distrib/delcia_web_deamon.sh
+ExecStop=/home/ubuntu/delcia_distrib/delcia_web_stop.sh
+WorkingDirectory=/home/ubuntu/delcia_distrib/
 Restart=on-failure
 RemainAfterExit=yes
 

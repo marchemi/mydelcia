@@ -37,7 +37,19 @@ function loadData() {
   state()
 }
 
+function disable_all() {
+    document.getElementById("button_onoff").disabled = true;
+    document.getElementById('id_reset').disabled = true;
+    document.getElementById('id_prog').disabled = true;
+}
+function enable_all() {
+    document.getElementById("button_onoff").disabled = false;
+    document.getElementById('id_reset').disabled = false;
+    document.getElementById('id_prog').disabled = false;
+}
+
 function state() {
+    disable_all()
     //alert(document.getElementById("button_onoff").disabled);
     var xhr = new XMLHttpRequest();
     var url = document.URL + "state"
@@ -54,7 +66,8 @@ function state() {
             upateState(xhr.response);
         }
       }
-      document.getElementById("button_onoff").disabled = false;
+      enable_all()
+      //document.getElementById("button_onoff").disabled = false;
     };
     xhr.send();
 }

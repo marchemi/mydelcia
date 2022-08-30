@@ -3,9 +3,9 @@
   "DACIA_PASSWORD":"",
   "DACIA_ACCOUNT":"",
   "DACIA_VIN":"",
-  "CRONFILE":"crontab",
-  "PORT": 8181,
-  "DEBUG": true,
-  "USER": "root",
+  "CRONFILE":"",
+  "PORT": 2707,
+  "DEBUG": false,
+  "USER": "ubuntu",
   "ADD_USER_TO_CRON": false
 }
