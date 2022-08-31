@@ -73,7 +73,7 @@ The file CRONFILE contain entry like :
 ```
 Parameters cronfile, user, add_user_to_cron, depends on your host installation. Installation section defines default values to use on Synology, Linux Ubuntu and Docker.  But depending on your system/installation you can adjust them.
 - CRONFILE : define the directory of cronfile to use. By default leave this parameter blank
-- USER : define the username field used in the crontab. By default use the user running the webserver process. Note also 
+- USER : define the username field used in the crontab. By default use the user running the webserver process. 
 - ADD_USER_TO_CRON : define if we need to force adding the username in cron entry.  By default leave this parameter to FALSE
 
 
@@ -112,7 +112,7 @@ The following dependencies are needed :
 
 ### Synology
 #### Prerequisite
-Python3 can be installed via the Synology DSM Installation Center, but pip and virtual are not installed.
+Python3 can be installed via the Synology DSM Installation Center, but pip and virtualenv are not installed.
 ##### Install PIP
 Here is a short how to on how to install pip
 https://jackgruber.github.io/2021-06-27-install-pip-on-synology/ 
@@ -134,11 +134,49 @@ Then you can install virtualenv. Be sure to use sudo here, as otherwise it will 
 ```
 
 #### Install package
-TODO
+Considering you have 'delcia.tar.gz' in your home 
+```
+~$ cd ~
+~$ tar -xvzf delcia.tar.gz
+```
+A directory 'delcia_distrib' is created. In this directory, run the install script
+```
+~$ ./install.sh 
+```
 #### Configure the server
-TODO
+Now you have to configure the file 'delcia_conf.json', concerning cron, use the following parameters/values : 
+```
+{
+  "CRONFILE":"/etc/crontab",
+  "DEBUG": false,
+  "USER": "root",
+  "ADD_USER_TO_CRON": false
+}
+```
+For the other parameters, see section [Configuration](#config)
+
+
 #### Install service at startup
-TODO
+The distribution is comming with two shellscript :
+- delcia_web_deamon.sh
+- auto_restart.sh
+
+The installation consiste to use DSM task scheduler to stat 'delcia_web_deamon.sh' at boot, and 'auto_restart.sh' every hour to check delcia server is up and running.
+see : 
+- (en) https://kb.synology.com/en-uk/DSM/help/DSM/AdminCenter/system_taskscheduler?version=7 
+- (fr) https://kb.synology.com/fr-fr/DSM/help/DSM/AdminCenter/system_taskscheduler?version=7
+
+To, start 'delcia_web_deamon.sh' at boot created a triggered task:
+- Go to Control Panel > Task Scheduler, click Create, and select Triggered Task.
+  - Select User-defined script, then :
+    - in tab "General" :
+      - enter task name
+      - leave 'root' for user.
+    - in tab "Task Settings" :
+      - in 'User-defined script' enter the full path of the script 'delcia_web_deamon.sh', eg : _/var/services/homes/USER/delcia_distrib/delcia_web_deamon.sh_
+
+Fellowing the same way, for rebustness, you can create a 'scheduled task' every hour with the script _'auto_restart.sh'_ 
+
 
 ### Ubuntu
 #### Prerequisite
@@ -152,7 +190,7 @@ Considering you have 'delcia.tar.gz' in your home
 ```
 A directory 'delcia_distrib' is created. In this directory, run the install script
 ```
-~$ sudo ./install.sh 
+~$ ./install.sh 
 ```
 #### Configure the server
 Now you have to configure the file 'delcia_conf.json', concerning cron, use the following parameters/values : 
@@ -209,7 +247,7 @@ You can build docker image by command line :
 ```
 ~$ docker build --pull --rm -f "Dockerfile_alpine" -t mydelcia:latest "." 
 ```
-#### Test / Run the image
+#### Test / Run the image 
 You can test the image, by running the container :
 ```
 ~$ docker run --name delcia  -d  -p 2707:2707 mydelcia 
