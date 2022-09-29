@@ -56,15 +56,15 @@ def get_heure_creuse_midi(now):
     now1 = time.gmtime().tm_hour
     now2 = time.localtime().tm_hour
     decalage_horraire = datetime.timedelta(hours=now2 - now1)
-    heure_creuse = datetime.datetime(now.year, now.month, now.day, 12, 38, 0) + decalage_horraire
+    heure_creuse = datetime.datetime(now.year, now.month, now.day, 11, 38, 0) + decalage_horraire
     return heure_creuse , heure_creuse + datetime.timedelta(hours=2)
 
 def get_heure_creuse_soir(now):
     now1 = time.gmtime().tm_hour
     now2 = time.localtime().tm_hour
     decalage_horraire = datetime.timedelta(hours=now2 - now1)
-    heure_creuse = datetime.datetime(now.year, now.month, now.day, 1, 38, 0) + decalage_horraire
-    return heure_creuse , heure_creuse + datetime.timedelta(hours=5)
+    heure_creuse = datetime.datetime(now.year, now.month, now.day, 0, 38, 0) + decalage_horraire
+    return heure_creuse , heure_creuse + datetime.timedelta(hours=6)
 
 
 def get_script_path():

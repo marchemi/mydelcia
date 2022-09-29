@@ -19,15 +19,19 @@ RUN set -x \
 # Install pip packages
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
-
+RUN apk add --update tzdata
+ENV TZ=Europe/Paris
 
 COPY delcia_distrib /usr/src/delcia_distrib
 # Set working directory for code
 WORKDIR /usr/src/delcia_distrib
 
 COPY entrypoint-alpine.sh ./entrypoint.sh
+COPY delcia_tools_alpine.sh ./delcia_toos.sh
 COPY delcia_tools_alpine.sh ./delcia_tools.sh
 COPY delcia_conf_alpine.json ./delcia_conf.json
+RUN chmod 755 ./delcia_toos.sh
+RUN chmod 755 ./delcia_tools.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
 
