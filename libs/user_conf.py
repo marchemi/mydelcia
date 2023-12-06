@@ -53,17 +53,17 @@ if (currentUser == ''):
 add_user_to_cmd = conf['ADD_USER_TO_CRON']
 
 def get_heure_creuse_midi(now):
-    now1 = time.gmtime().tm_hour
-    now2 = time.localtime().tm_hour
-    decalage_horraire = datetime.timedelta(hours=now2 - now1)
-    heure_creuse = datetime.datetime(now.year, now.month, now.day, 11, 38, 0) + decalage_horraire
+    #now1 = time.gmtime().tm_hour
+    #now2 = time.localtime().tm_hour
+    #decalage_horraire = datetime.timedelta(hours=now2 - now1)
+    heure_creuse = datetime.datetime(now.year, now.month, now.day, 13, 0, 0) 
     return heure_creuse , heure_creuse + datetime.timedelta(hours=2)
 
 def get_heure_creuse_soir(now):
-    now1 = time.gmtime().tm_hour
-    now2 = time.localtime().tm_hour
-    decalage_horraire = datetime.timedelta(hours=now2 - now1)
-    heure_creuse = datetime.datetime(now.year, now.month, now.day, 0, 38, 0) + decalage_horraire
+    #now1 = time.gmtime().tm_hour
+    #now2 = time.localtime().tm_hour
+    #decalage_horraire = datetime.timedelta(hours=now2 - now1)
+    heure_creuse = datetime.datetime(now.year, now.month, now.day, 1, 0, 0) 
     return heure_creuse , heure_creuse + datetime.timedelta(hours=6)
 
 
